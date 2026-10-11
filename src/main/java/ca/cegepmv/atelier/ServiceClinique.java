@@ -57,6 +57,8 @@ public class ServiceClinique {
 
     private final List<String> journalRappels = new ArrayList<>();
 
+   
+
     /**
      * Génère le texte de facture pour un propriétaire, à partir de la liste de
      * visites
@@ -204,14 +206,14 @@ public class ServiceClinique {
      *
      * ⚠️ Aucun test ne couvre cette méthode actuellement.
      */
-    public Visite planifierVisite(int idAnimal, LocalDate date, String type, boolean urgence,
-            String nomVeterinaire, String notes, boolean envoyerRappelEmail) {
-        if (type == null || type.isBlank()) {
+
+    public Visite planifierVisite(DemandeVisite demande) {
+        if (demande.type() == null || demande.type().isBlank()) {
             throw new IllegalArgumentException("Le type de visite est requis");
         }
-        Visite visite = new Visite(date, type, urgence, nomVeterinaire, notes);
-        if (envoyerRappelEmail) {
-            journalRappels.add("Rappel envoyé pour la visite du " + date + " (animal #" + idAnimal + ")");
+        Visite visite = new Visite(demande.date(), demande.type(), demande.urgence(), demande.nomVeterinaire(), demande.notes());
+        if (demande.envoyerRappelEmail()) {
+            journalRappels.add("Rappel envoyé pour la visite du " + demande.date() + " (animal #" + demande.idAnimal() + ")");
         }
         return visite;
     }
