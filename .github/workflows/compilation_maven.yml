@@ -27,10 +27,17 @@ jobs:
             run: chmod +x mvnw
           - name: Compilation du projet Maven
             run: ./mvnw -B compile
-          #Todo 1 Tests
+          #Todo 1-2 Tests & JaCoCo
           - name: Execution des Tests 
             run: ./mvnw -B clean verify
-
+        
+          #Todo 3 JaCoCo publier le rapport comme artefact
+          - name: Publier le rapport JaCoCo
+            if: always()
+            uses: actions/upload-artifact@v5
+            with:
+              name: rapport-JaCoCo
+              path: target/site/jacoco
           #Todo 4 Jar
           - name: Build
             run: ./mvnw -B clean package -DskipTests   # produit le .jar dans target/
