@@ -217,10 +217,10 @@ class ServiceCliniqueTest {
         Visite visiteTypePhysiotherapie = new Visite(LocalDate.now(), "PHYSIOTHERAPIE", false,  "Dr Marc", "Soins de Physiothérapie");
 
         //Act
-        int dureeConsultation = service.calculerDureeRendezVous(visiteTypeConsultation);
-        int dureeVaccin = service.calculerDureeRendezVous(visiteTypeVaccin);
-        int dureeChirurgie = service.calculerDureeRendezVous(visiteTypeChirurgie);
-        int dureeTypeInconnue = service.calculerDureeRendezVous(visiteTypePhysiotherapie);
+        int dureeConsultation = service.calculDureeRendezVous(visiteTypeConsultation);
+        int dureeVaccin = service.calculDureeRendezVous(visiteTypeVaccin);
+        int dureeChirurgie = service.calculDureeRendezVous(visiteTypeChirurgie);
+        int dureeTypeInconnue = service.calculDureeRendezVous(visiteTypePhysiotherapie);
 
         //Assert
         assertEquals(20, dureeConsultation);

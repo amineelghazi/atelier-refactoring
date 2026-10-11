@@ -169,7 +169,7 @@ public class ServiceClinique {
      *
      * ⚠️ Aucun test ne couvre cette méthode actuellement.
      */
-    public int calculerDureeRendezVous(Visite visite) {
+    public int calculDureeRendezVous(Visite visite) {
         if (visite.getType().equals("CONSULTATION")) {
             return 20;
         } else if (visite.getType().equals("VACCIN")) {
@@ -228,24 +228,24 @@ public class ServiceClinique {
      * - Un seul animal ET client depuis 5 ans ou plus → 0.05
      * - Un seul animal ET client depuis moins de 5 ans → 0.0
      */
-    public double calculerRemiseFidelite(Proprietaire proprietaire) {
-        double remise = 0.0;
-        if (proprietaire != null) {
-            if (proprietaire.getSolde() >= 0) {
-                if (proprietaire.getAnimaux().size() > 1) {
-                    if (proprietaire.getAnneesClient() >= 3) {
-                        remise = 0.15;
-                    } else {
-                        remise = 0.10;
-                    }
-                } else {
-                    if (proprietaire.getAnneesClient() >= 5) {
-                        remise = 0.05;
-                    }
-                }
-            }
+    public double calculerRemiseFidelite(Proprietaire proprietaire){
+        if(proprietaire == null || proprietaire.getSolde() <0){
+            return 0.0;
         }
-        return remise;
+       
+        boolean plusieursAnimaux = proprietaire.getAnimaux().size() > 1;
+        int anneeClient = proprietaire.getAnneesClient();
+
+        if(plusieursAnimaux && anneeClient >=3){
+            return 0.15;
+        }
+        if(plusieursAnimaux){
+            return 0.10;
+        }
+        if(anneeClient >= 5){
+            return 0.05;
+        }
+        return 0.0;
     }
 
     public List<String> getJournalRappels() {
