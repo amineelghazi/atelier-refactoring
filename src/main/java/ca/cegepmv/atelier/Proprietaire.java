@@ -27,6 +27,16 @@ public class Proprietaire {
         this.solde = solde;
         this.anneesClient = anneesClient;
     }
+    
+    public String resumeContact(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Adresse: ").append(getAdresse().rue()).append(", ").append(getAdresse().ville())
+                .append(" ").append(getAdresse().codePostal()).append("\n");
+        sb.append("Contact: ").append(getEmail()).append(" / ").append(getTelephone())
+                .append("\n");
+        return sb.toString();
+    }
+
 
     public void ajouterAnimal(Animal animal) {
         animaux.add(animal);

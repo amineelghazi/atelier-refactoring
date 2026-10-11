@@ -187,16 +187,15 @@ public class ServiceClinique {
      *
      * ⚠️ Aucun test ne couvre cette méthode actuellement.
      */
+
+   
     public String genererRapportPourVeterinaire(Veterinaire veterinaire, Proprietaire proprietaire,
             List<Visite> visites) {
         StringBuilder sb = new StringBuilder();
         sb.append("Rapport du Dr ").append(veterinaire.getNom())
                 .append(" (").append(veterinaire.getSpecialite()).append(")\n");
         sb.append("Client: ").append(proprietaire.getPrenom()).append(" ").append(proprietaire.getNom()).append("\n");
-        sb.append("Adresse: ").append(proprietaire.getAdresse().rue()).append(", ").append(proprietaire.getAdresse().ville())
-                .append(" ").append(proprietaire.getAdresse().codePostal()).append("\n");
-        sb.append("Contact: ").append(proprietaire.getEmail()).append(" / ").append(proprietaire.getTelephone())
-                .append("\n");
+        sb.append(proprietaire.resumeContact());
         sb.append("Nombre de visites: ").append(visites.size());
         return sb.toString();
     }
