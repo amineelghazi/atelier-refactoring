@@ -80,19 +80,24 @@ public class ServiceClinique {
         }
     }
 
+    private double associeBonTarifAuType(String type) {
+        double tarifBase;
+        if (type.equals("CONSULTATION")) {
+            tarifBase = 60.0;
+        } else if (type.equals("VACCIN")) {
+            tarifBase = 35.0;
+        } else if (type.equals("CHIRURGIE")) {
+            tarifBase = 250.0;
+        } else {
+            tarifBase = 0.0;
+        }
+        return tarifBase;
+    }
+
     public double calculSousTotal(List<Visite> visites) {
         double sousTotal = 0.0;
         for (Visite visite : visites) {
-            double tarifBase;
-            if (visite.getType().equals("CONSULTATION")) {
-                tarifBase = 60.0;
-            } else if (visite.getType().equals("VACCIN")) {
-                tarifBase = 35.0;
-            } else if (visite.getType().equals("CHIRURGIE")) {
-                tarifBase = 250.0;
-            } else {
-                tarifBase = 0.0;
-            }
+            double tarifBase = associeBonTarifAuType(visite.getType());
             double tarif = visite.isUrgence() ? tarifBase * 1.5 : tarifBase;
             sousTotal += tarif;
         }
@@ -150,16 +155,7 @@ public class ServiceClinique {
         }
         double total = 0.0;
         for (Visite visite : visites) {
-            double tarifBase;
-            if (visite.getType().equals("CONSULTATION")) {
-                tarifBase = 60.0;
-            } else if (visite.getType().equals("VACCIN")) {
-                tarifBase = 35.0;
-            } else if (visite.getType().equals("CHIRURGIE")) {
-                tarifBase = 250.0;
-            } else {
-                tarifBase = 0.0;
-            }
+            double tarifBase = associeBonTarifAuType(visite.getType());
             total += tarifBase;
         }
         return total * 12;
