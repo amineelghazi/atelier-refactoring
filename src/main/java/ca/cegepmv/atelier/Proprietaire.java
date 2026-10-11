@@ -18,7 +18,7 @@ public class Proprietaire {
     private final List<Animal> animaux = new ArrayList<>();
 
     public Proprietaire(String prenom, String nom, Adresse adresse,
-                         String email, String telephone, double solde, int anneesClient) {
+            String email, String telephone, double solde, int anneesClient) {
         this.prenom = prenom;
         this.nom = nom;
         this.adresse = adresse;
@@ -27,8 +27,8 @@ public class Proprietaire {
         this.solde = solde;
         this.anneesClient = anneesClient;
     }
-    
-    public String resumeContact(){
+
+    public String resumeContact() {
         StringBuilder sb = new StringBuilder();
         sb.append("Adresse: ").append(getAdresse().rue()).append(", ").append(getAdresse().ville())
                 .append(" ").append(getAdresse().codePostal()).append("\n");
@@ -36,7 +36,6 @@ public class Proprietaire {
                 .append("\n");
         return sb.toString();
     }
-
 
     public void ajouterAnimal(Animal animal) {
         animaux.add(animal);
@@ -50,9 +49,9 @@ public class Proprietaire {
         return nom;
     }
 
-   public Adresse getAdresse(){
+    public Adresse getAdresse() {
         return adresse;
-   }
+    }
 
     public String getEmail() {
         return email;

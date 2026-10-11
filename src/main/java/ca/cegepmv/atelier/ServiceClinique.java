@@ -57,8 +57,6 @@ public class ServiceClinique {
 
     private final List<String> journalRappels = new ArrayList<>();
 
-   
-
     /**
      * Génère le texte de facture pour un propriétaire, à partir de la liste de
      * visites
@@ -188,7 +186,6 @@ public class ServiceClinique {
      * ⚠️ Aucun test ne couvre cette méthode actuellement.
      */
 
-   
     public String genererRapportPourVeterinaire(Veterinaire veterinaire, Proprietaire proprietaire,
             List<Visite> visites) {
         StringBuilder sb = new StringBuilder();
@@ -210,9 +207,11 @@ public class ServiceClinique {
         if (demande.type() == null || demande.type().isBlank()) {
             throw new IllegalArgumentException("Le type de visite est requis");
         }
-        Visite visite = new Visite(demande.date(), demande.type(), demande.urgence(), demande.nomVeterinaire(), demande.notes());
+        Visite visite = new Visite(demande.date(), demande.type(), demande.urgence(), demande.nomVeterinaire(),
+                demande.notes());
         if (demande.envoyerRappelEmail()) {
-            journalRappels.add("Rappel envoyé pour la visite du " + demande.date() + " (animal #" + demande.idAnimal() + ")");
+            journalRappels
+                    .add("Rappel envoyé pour la visite du " + demande.date() + " (animal #" + demande.idAnimal() + ")");
         }
         return visite;
     }
@@ -228,21 +227,21 @@ public class ServiceClinique {
      * - Un seul animal ET client depuis 5 ans ou plus → 0.05
      * - Un seul animal ET client depuis moins de 5 ans → 0.0
      */
-    public double calculerRemiseFidelite(Proprietaire proprietaire){
-        if(proprietaire == null || proprietaire.getSolde() <0){
+    public double calculerRemiseFidelite(Proprietaire proprietaire) {
+        if (proprietaire == null || proprietaire.getSolde() < 0) {
             return 0.0;
         }
-       
+
         boolean plusieursAnimaux = proprietaire.getAnimaux().size() > 1;
         int anneeClient = proprietaire.getAnneesClient();
 
-        if(plusieursAnimaux && anneeClient >=3){
+        if (plusieursAnimaux && anneeClient >= 3) {
             return 0.15;
         }
-        if(plusieursAnimaux){
+        if (plusieursAnimaux) {
             return 0.10;
         }
-        if(anneeClient >= 5){
+        if (anneeClient >= 5) {
             return 0.05;
         }
         return 0.0;

@@ -5,8 +5,10 @@ import java.time.LocalDate;
 /**
  * Une visite d'un animal à la clinique.
  *
- * {@code type} est volontairement une chaîne libre ("CONSULTATION", "VACCIN", "CHIRURGIE")
- * plutôt qu'un type dédié — c'est le point de départ du réusinage "Replace Conditional with
+ * {@code type} est volontairement une chaîne libre ("CONSULTATION", "VACCIN",
+ * "CHIRURGIE")
+ * plutôt qu'un type dédié — c'est le point de départ du réusinage "Replace
+ * Conditional with
  * Polymorphism" proposé dans l'atelier.
  */
 public class Visite {

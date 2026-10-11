@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Un animal appartenant à un {@link Proprietaire}, avec son historique de visites.
+ * Un animal appartenant à un {@link Proprietaire}, avec son historique de
+ * visites.
  */
 public class Animal {
 
