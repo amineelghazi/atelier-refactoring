@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -157,15 +158,76 @@ class ServiceCliniqueTest {
         assertEquals(0.15, remise);
     }
     // TODO 5 — calculerRemiseFidelite() : plus d'un animal ET anneesClient < 3 (0.10)
-    
+    @Test 
+    void calculerRemiseFidelite_plusUnAnimalEtAnneesClientMoinsDeTrois_retourne10Pourcent(){
+        //Arrange
+        Proprietaire jessica = new Proprietaire("Jessica", "Williams", "123 rue des Lilas", "Longueuil",
+                "J4G 1A1", "jessica.williams@example.com", "450-555-0100", 0.0, 2);
+        jessica.ajouterAnimal(new Animal(1, "Baron", "CHIEN", LocalDate.of(2021, 5, 7)));
+        jessica.ajouterAnimal(new Animal(1, "Rufus", "CHIEN", LocalDate.of(2021, 5, 7)));
+
+        //Act
+        double remise = service.calculerRemiseFidelite(jessica);
+
+        //Assert
+        assertEquals(0.10, remise);
+    }
 
     // TODO 6 — calculerRemiseFidelite() : un seul animal ET anneesClient >= 5 (0.05)
+    @Test 
+    void calculerRemiseFidelite_unSeulAnimalEtAnneesClientSuperieurOuEgalA5_retourne5Pourcent(){
+        //Arrange
+        Proprietaire sara = new Proprietaire("Sara", "Desjardins", "123 rue des Lilas", "Longueuil",
+                "J4G 1A1", "sara.desjardins@example.com", "450-555-0100", 0.0, 6);
+        sara.ajouterAnimal(new Animal(1, "Rocky", "CHIEN", LocalDate.of(2021, 5, 7)));
+        
+        //Act
+        double remise = service.calculerRemiseFidelite(sara);
+
+        //Assert
+        assertEquals(0.05, remise);
+    }
 
     // TODO 7 — estimerCoutAnnuel() : plusieurs visites de types différents
+    @Test 
+    void estimerCoutAnnuel_plusieurVisiteTypeDifferent_retourneLeBonCout(){
+        //Arrange
+        List<Visite> visites = new ArrayList<>();
+        Visite visiteTypeConsultation =  new Visite(LocalDate.now(), "CONSULTATION", false,  "Dr Marc", "Consultation annuel");
+        Visite visiteTypeVaccin =  new Visite(LocalDate.now(), "VACCIN", false,  "Dr Marc", "Vaccin annuel");
+        Visite visiteTypeChirurgie =  new Visite(LocalDate.now(), "CHIRURGIE", false,  "Dr Marc", "Chirurgie annuel");
+        visites.add(visiteTypeConsultation);
+        visites.add(visiteTypeVaccin);
+        visites.add(visiteTypeChirurgie);
 
+        //Act
+        double estimationTarifs = service.estimerCoutAnnuel(visites);
+
+       //Assert
+       assertEquals(4140, estimationTarifs);
+    }
     // TODO 8 — calculerDureeRendezVous() : CONSULTATION, VACCIN, CHIRURGIE, et un type
     //          inconnu (documentez le comportement actuel, ne le "corrigez" pas)
+    @Test 
+    void calculerDureeRendezVous_consultationVaccinChirurgieTypeInconnue_retourneDureeTotal(){
+        //Arrange
+        Visite visiteTypeConsultation =  new Visite(LocalDate.now(), "CONSULTATION", false,  "Dr Marc", "Consultation annuel");
+        Visite visiteTypeVaccin =  new Visite(LocalDate.now(), "VACCIN", false,  "Dr Marc", "Vaccin annuel");
+        Visite visiteTypeChirurgie =  new Visite(LocalDate.now(), "CHIRURGIE", false,  "Dr Marc", "Chirurgie annuel");
+        Visite visiteTypePhysiotherapie = new Visite(LocalDate.now(), "PHYSIOTHERAPIE", false,  "Dr Marc", "Soins de Physiothérapie");
 
+        //Act
+        int dureeConsultation = service.calculerDureeRendezVous(visiteTypeConsultation);
+        int dureeVaccin = service.calculerDureeRendezVous(visiteTypeVaccin);
+        int dureeChirurgie = service.calculerDureeRendezVous(visiteTypeChirurgie);
+        int dureeTypeInconnue = service.calculerDureeRendezVous(visiteTypePhysiotherapie);
+
+        //Assert
+        assertEquals(20, dureeConsultation);
+        assertEquals(10,  dureeVaccin);
+        assertEquals(90, dureeChirurgie);
+        assertEquals(30, dureeTypeInconnue);
+    }
     // TODO 9 — genererRapportPourVeterinaire() : un cas normal avec un Veterinaire,
     //          un Proprietaire et une liste de visites
 
