@@ -10,22 +10,18 @@ public class Proprietaire {
 
     private final String prenom;
     private final String nom;
-    private final String rue;
-    private final String ville;
-    private final String codePostal;
+    private final Adresse adresse;
     private final String email;
     private final String telephone;
     private final double solde;
     private final int anneesClient;
     private final List<Animal> animaux = new ArrayList<>();
 
-    public Proprietaire(String prenom, String nom, String rue, String ville, String codePostal,
+    public Proprietaire(String prenom, String nom, Adresse adresse,
                          String email, String telephone, double solde, int anneesClient) {
         this.prenom = prenom;
         this.nom = nom;
-        this.rue = rue;
-        this.ville = ville;
-        this.codePostal = codePostal;
+        this.adresse = adresse;
         this.email = email;
         this.telephone = telephone;
         this.solde = solde;
@@ -44,17 +40,9 @@ public class Proprietaire {
         return nom;
     }
 
-    public String getRue() {
-        return rue;
-    }
-
-    public String getVille() {
-        return ville;
-    }
-
-    public String getCodePostal() {
-        return codePostal;
-    }
+   public Adresse getAdresse(){
+        return adresse;
+   }
 
     public String getEmail() {
         return email;

@@ -43,8 +43,8 @@ class ServiceCliniqueTest {
     void setUp() {
         service = new ServiceClinique();
         // Arrange commun : propriétaire avec un seul animal, solde à jour, cliente depuis 1 an
-        julie = new Proprietaire("Julie", "Tremblay", "123 rue des Lilas", "Longueuil",
-                "J4G 1A1", "julie.tremblay@example.com", "450-555-0100", 0.0, 1);
+        julie = new Proprietaire("Julie", "Tremblay", new Adresse("123 rue des Lilas", "Longueuil",
+                "J4G 1A1"), "julie.tremblay@example.com", "450-555-0100", 0.0, 1);
         julie.ajouterAnimal(new Animal(1, "Rex", "CHIEN", LocalDate.of(2020, 3, 15)));
     }
 
@@ -130,8 +130,8 @@ class ServiceCliniqueTest {
     @Test 
     void genererFacture_proprietaireSoldeNegatif_calculeLeBonSousTotal(){
         //Arrange
-        Proprietaire Martin = new Proprietaire("Martin", "Tremblay", "123 rue des Lilas", "Longueuil",
-                "J4G 1A1", "martin.tremblay@example.com", "450-555-0100", -10, 1);
+        Proprietaire Martin = new Proprietaire("Martin", "Tremblay",new Adresse("123 rue des Lilas", "Longueuil",
+                "J4G 1A1") , "martin.tremblay@example.com", "450-555-0100", -10, 1);
         Martin.ajouterAnimal(new Animal(1, "Tiger", "CHIEN", LocalDate.of(2020, 3, 15)));
         Visite consultation = new Visite(LocalDate.now(), "CONSULTATION", false, "Dr Sacha", "Première Consultation");
 
@@ -146,8 +146,8 @@ class ServiceCliniqueTest {
     @Test 
     void calculerRemiseFidelite_plusUnAnimalEtAnneeClientTroisAnsOuPlus_retourne15Pourcent(){
         //Arrange
-        Proprietaire joe = new Proprietaire("Joe", "Williams", "123 rue des Lilas", "Longueuil",
-                "J4G 1A1", "joe.williams@example.com", "450-555-0100", 0.0, 3);
+        Proprietaire joe = new Proprietaire("Joe", "Williams", new Adresse("123 rue des Lilas", "Longueuil",
+                "J4G 1A1") , "joe.williams@example.com", "450-555-0100", 0.0, 3);
         joe.ajouterAnimal(new Animal(1, "Luna", "CHAT", LocalDate.of(2024, 5, 7)));
         joe.ajouterAnimal(new Animal(2, "Soleil", "CHAT", LocalDate.of(2023, 6, 9)));
 
@@ -161,8 +161,8 @@ class ServiceCliniqueTest {
     @Test 
     void calculerRemiseFidelite_plusUnAnimalEtAnneesClientMoinsDeTrois_retourne10Pourcent(){
         //Arrange
-        Proprietaire jessica = new Proprietaire("Jessica", "Williams", "123 rue des Lilas", "Longueuil",
-                "J4G 1A1", "jessica.williams@example.com", "450-555-0100", 0.0, 2);
+        Proprietaire jessica = new Proprietaire("Jessica", "Williams", new Adresse("123 rue des Lilas", "Longueuil",
+                "J4G 1A1") , "jessica.williams@example.com", "450-555-0100", 0.0, 2);
         jessica.ajouterAnimal(new Animal(1, "Baron", "CHIEN", LocalDate.of(2021, 5, 7)));
         jessica.ajouterAnimal(new Animal(1, "Rufus", "CHIEN", LocalDate.of(2021, 5, 7)));
 
@@ -177,8 +177,8 @@ class ServiceCliniqueTest {
     @Test 
     void calculerRemiseFidelite_unSeulAnimalEtAnneesClientSuperieurOuEgalA5_retourne5Pourcent(){
         //Arrange
-        Proprietaire sara = new Proprietaire("Sara", "Desjardins", "123 rue des Lilas", "Longueuil",
-                "J4G 1A1", "sara.desjardins@example.com", "450-555-0100", 0.0, 6);
+        Proprietaire sara = new Proprietaire("Sara", "Desjardins", new Adresse("123 rue des Lilas", "Longueuil",
+                "J4G 1A1") , "sara.desjardins@example.com", "450-555-0100", 0.0, 6);
         sara.ajouterAnimal(new Animal(1, "Rocky", "CHIEN", LocalDate.of(2021, 5, 7)));
         
         //Act
@@ -234,8 +234,8 @@ class ServiceCliniqueTest {
     void genererRapportPourVeterinaire_unVeterinaireUnProprietaireEtUneListeDeVisites_retourneRapportDuVeterinaire(){
         //Arrange
         Veterinaire joe = new Veterinaire("Joe", "Chirurgie");
-        Proprietaire ash =  new Proprietaire("ash", "ketchum", "123 rue des Lilas", "montréal",
-                "J4G 1A1", "ash.ketchum@example.com", "450-555-0100", 0.0, 3);
+        Proprietaire ash =  new Proprietaire("ash", "ketchum", new Adresse("123 rue des Lilas", "montréal",
+                "J4G 1A1"), "ash.ketchum@example.com", "450-555-0100", 0.0, 3);
         List<Visite> visites = new ArrayList<>();
         Visite visiteTypeConsultation =  new Visite(LocalDate.now(), "CONSULTATION", false,  "Dr Marc", "Consultation annuel");
         Visite visiteTypeVaccin =  new Visite(LocalDate.now(), "VACCIN", false,  "Dr Marc", "Vaccin annuel");

@@ -193,8 +193,8 @@ public class ServiceClinique {
         sb.append("Rapport du Dr ").append(veterinaire.getNom())
                 .append(" (").append(veterinaire.getSpecialite()).append(")\n");
         sb.append("Client: ").append(proprietaire.getPrenom()).append(" ").append(proprietaire.getNom()).append("\n");
-        sb.append("Adresse: ").append(proprietaire.getRue()).append(", ").append(proprietaire.getVille())
-                .append(" ").append(proprietaire.getCodePostal()).append("\n");
+        sb.append("Adresse: ").append(proprietaire.getAdresse().rue()).append(", ").append(proprietaire.getAdresse().ville())
+                .append(" ").append(proprietaire.getAdresse().codePostal()).append("\n");
         sb.append("Contact: ").append(proprietaire.getEmail()).append(" / ").append(proprietaire.getTelephone())
                 .append("\n");
         sb.append("Nombre de visites: ").append(visites.size());
