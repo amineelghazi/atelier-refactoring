@@ -27,8 +27,18 @@ jobs:
             run: chmod +x mvnw
           - name: Compilation du projet Maven
             run: ./mvnw -B compile
+          #Todo 1 Tests
           - name: Execution des Tests 
             run: ./mvnw -B clean verify
+
+          #Todo 4 Jar
+          - name: Build
+            run: ./mvnw -B clean package -DskipTests   # produit le .jar dans target/
+          - name: Publier le .jar en artefact
+            uses: actions/upload-artifact@v5
+            with:
+              name: application-jar
+              path: target/*.jar          # ex. target/spring-petclinic-rest-*.jar
 # TODO 1 : une fois vos tests de caractérisation écrits (README, Partie 2) et vos
 #          refactorings terminés (README, Partie 3), modifiez la dernière étape
 #          ci-dessus pour exécuter toute la suite de tests plutôt que la seule
@@ -46,3 +56,4 @@ jobs:
 # TODO 4 (bonus) : empaquetez le projet (./mvnw -B clean package) et publiez le .jar
 #          produit comme artefact distinct (voir les notes de cours de la semaine 5 —
 #          GitHub Actions, section Artefacts).
+
