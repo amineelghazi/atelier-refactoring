@@ -230,8 +230,40 @@ class ServiceCliniqueTest {
     }
     // TODO 9 — genererRapportPourVeterinaire() : un cas normal avec un Veterinaire,
     //          un Proprietaire et une liste de visites
+    @Test 
+    void genererRapportPourVeterinaire_unVeterinaireUnProprietaireEtUneListeDeVisites_retourneRapportDuVeterinaire(){
+        //Arrange
+        Veterinaire joe = new Veterinaire("Joe", "Chirurgie");
+        Proprietaire ash =  new Proprietaire("ash", "ketchum", "123 rue des Lilas", "montréal",
+                "J4G 1A1", "ash.ketchum@example.com", "450-555-0100", 0.0, 3);
+        List<Visite> visites = new ArrayList<>();
+        Visite visiteTypeConsultation =  new Visite(LocalDate.now(), "CONSULTATION", false,  "Dr Marc", "Consultation annuel");
+        Visite visiteTypeVaccin =  new Visite(LocalDate.now(), "VACCIN", false,  "Dr Marc", "Vaccin annuel");
+        visites.add(visiteTypeConsultation);
+        visites.add(visiteTypeVaccin);
 
+        //Act
+        String rapportVeterinaire = service.genererRapportPourVeterinaire(joe, ash, visites);
+
+        //Assert
+        assertEquals("Rapport du Dr Joe (Chirurgie)\nClient: ash ketchum\nAdresse: 123 rue des Lilas, montréal J4G 1A1\nContact: ash.ketchum@example.com / 450-555-0100\nNombre de visites: 2", rapportVeterinaire);
+    }
     // TODO 10 — planifierVisite() : un appel avec envoyerRappelEmail=true (vérifiez le
     //           contenu de service.getJournalRappels()) ET un appel avec
     //           envoyerRappelEmail=false (le journal doit rester vide)
+    @Test
+    void planifierVisite_rappelTrueEtFalse_seulLeRappelTrueEcritDansLeJournal(){
+        //Act rappel true
+        service.planifierVisite(1, LocalDate.of(2026,11,17), "CONSULTATION", false, "Dr Louise", "Premier rendez-vous pour luna", true);
+
+        //Assert rappel true
+        assertEquals(1, service.getJournalRappels().size());
+        assertEquals("Rappel envoyé pour la visite du 2026-11-17 (animal #1)", service.getJournalRappels().get(0));
+
+        //Act rappel false
+        service.planifierVisite(2, LocalDate.of(2027, 3,1), "VACCIN", false, "Dr Léa", "Vaccin pour Rock", false);
+
+        //Assert rappel false
+        assertEquals(1, service.getJournalRappels().size());
+    }
 }
