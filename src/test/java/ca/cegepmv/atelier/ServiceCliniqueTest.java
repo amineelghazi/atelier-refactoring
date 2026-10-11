@@ -270,14 +270,17 @@ class ServiceCliniqueTest {
     @Test 
     void planifierVisite_rappelTrue_doitEcrireDansLeJournal(){
         //Act + assert
-        service.planifierVisite(1, LocalDate.of(2026,11,17), "CONSULTATION", false, "Dr Louise", "Premier rendez-vous pour luna", true);
+        DemandeVisite demande = new DemandeVisite(1, LocalDate.of(2026, 11, 17), "CONSULTATION",
+        false, "Dr Louise", "Premier rendez-vous pour Luna", true);
+        service.planifierVisite(demande);
         assertEquals(1, service.getJournalRappels().size());
         assertEquals("Rappel envoyé pour la visite du 2026-11-17 (animal #1)", service.getJournalRappels().get(0));
     }
     @Test 
     void planifierVisite_rappelFalse_neDoitPasEcrireDansLeJournal(){
         //Act + assert
-        service.planifierVisite(2, LocalDate.of(2027, 3,1), "VACCIN", false, "Dr Léa", "Vaccin pour Rock", false);
+         DemandeVisite demande = new DemandeVisite(2, LocalDate.of(2027, 3,1), "VACCIN", false, "Dr Léa", "Vaccin pour Rock", false);
+        service.planifierVisite(demande);
         assertEquals(0, service.getJournalRappels().size());
     }
 }
