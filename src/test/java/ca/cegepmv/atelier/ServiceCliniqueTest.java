@@ -251,19 +251,33 @@ class ServiceCliniqueTest {
     // TODO 10 — planifierVisite() : un appel avec envoyerRappelEmail=true (vérifiez le
     //           contenu de service.getJournalRappels()) ET un appel avec
     //           envoyerRappelEmail=false (le journal doit rester vide)
-    @Test
-    void planifierVisite_rappelTrueEtFalse_seulLeRappelTrueEcritDansLeJournal(){
-        //Act rappel true
-        service.planifierVisite(1, LocalDate.of(2026,11,17), "CONSULTATION", false, "Dr Louise", "Premier rendez-vous pour luna", true);
+    // @Test
+    // void planifierVisite_rappelTrueEtFalse_seulLeRappelTrueEcritDansLeJournal(){
+    //     //Act rappel true
+    //     service.planifierVisite(1, LocalDate.of(2026,11,17), "CONSULTATION", false, "Dr Louise", "Premier rendez-vous pour luna", true);
 
-        //Assert rappel true
+    //     //Assert rappel true
+    //     assertEquals(1, service.getJournalRappels().size());
+    //     assertEquals("Rappel envoyé pour la visite du 2026-11-17 (animal #1)", service.getJournalRappels().get(0));
+
+    //     //Act rappel false
+    //     service.planifierVisite(2, LocalDate.of(2027, 3,1), "VACCIN", false, "Dr Léa", "Vaccin pour Rock", false);
+
+    //     //Assert rappel false
+    //     assertEquals(1, service.getJournalRappels().size());
+    // }
+
+    @Test 
+    void planifierVisite_rappelTrue_doitEcrireDansLeJournal(){
+        //Act + assert
+        service.planifierVisite(1, LocalDate.of(2026,11,17), "CONSULTATION", false, "Dr Louise", "Premier rendez-vous pour luna", true);
         assertEquals(1, service.getJournalRappels().size());
         assertEquals("Rappel envoyé pour la visite du 2026-11-17 (animal #1)", service.getJournalRappels().get(0));
-
-        //Act rappel false
+    }
+    @Test 
+    void planifierVisite_rappelFalse_neDoitPasEcrireDansLeJournal(){
+        //Act + assert
         service.planifierVisite(2, LocalDate.of(2027, 3,1), "VACCIN", false, "Dr Léa", "Vaccin pour Rock", false);
-
-        //Assert rappel false
-        assertEquals(1, service.getJournalRappels().size());
+        assertEquals(0, service.getJournalRappels().size());
     }
 }
