@@ -29,7 +29,11 @@ jobs:
             run: ./mvnw -B compile
           #Todo 1-2 Tests & JaCoCo
           - name: Execution des Tests 
-            run: ./mvnw -B clean verify
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN}}
+            run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=amineelghazi_atelier-refactoring -Dsonar.organization=amineelghazi
+
         
           #Todo 3 JaCoCo publier le rapport comme artefact
           - name: Publier le rapport JaCoCo
